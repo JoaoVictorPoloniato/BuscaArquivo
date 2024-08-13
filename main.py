@@ -2,11 +2,10 @@ import os
 import shutil
 
 def main(pasta_origem, pasta_destino):
-
     if not os.path.exists(pasta_destino):
-        os.makedirs(pasta_destino) 
+        os.makedirs(pasta_destino)
 
-    arquivos = os.listdir(pasta_origem) 
+    arquivos = os.listdir(pasta_origem)
 
     for arquivo in arquivos:
         caminho_arquivo_origem = os.path.join(pasta_origem, arquivo)
@@ -16,6 +15,10 @@ def main(pasta_origem, pasta_destino):
         if os.path.isfile(caminho_arquivo_origem):
             shutil.copy2(caminho_arquivo_origem, caminho_arquivo_destino)
             print(f'{arquivo} copiado de {pasta_origem} para {pasta_destino}')
+        # Se for um diretório, copia-o recursivamente
+        elif os.path.isdir(caminho_arquivo_origem):
+            shutil.copytree(caminho_arquivo_origem, caminho_arquivo_destino)
+            print(f'Diretório {arquivo} copiado de {pasta_origem} para {pasta_destino}')
 
 if __name__ == "__main__":
     # Especifica as pastas (troque se necessário)
